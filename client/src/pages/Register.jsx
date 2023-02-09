@@ -3,8 +3,9 @@ import React from "react";
 const Register = () => {
   return (
     <form className="register">
-      <input type="text" placeholder="username" />
-      <input type="password" placeholder="password" />
+      <h1>Register</h1>
+      <input type="text" placeholder="Username" />
+      <input type="password" placeholder="Password" />
       <button>Register</button>
     </form>
   );
