@@ -14,4 +14,18 @@ const registerApi = async (data) => {
   }
 };
 
-export default registerApi;
+const loginApi = async (data) => {
+  try {
+    const response = await axios({
+      method: "post",
+      url: `${BASE_URL}/login`,
+      data: data,
+      withCredentials: true,
+    });
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { registerApi, loginApi };

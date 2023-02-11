@@ -1,4 +1,5 @@
 const UserModal = require("../models/User");
+const jwt = require("jsonwebtoken");
 
 const userRegister = async (req, res) => {
   const { username, password } = req.body;
@@ -27,6 +28,7 @@ const userRegister = async (req, res) => {
 
 const userLogin = async (req, res) => {
   const { username, password } = req.body;
+  const secretKey = "iamsanjayapaudeliamfullstackdeveloper";
   try {
     const user = await UserModal.findOne({ username });
 
@@ -38,7 +40,7 @@ const userLogin = async (req, res) => {
       return false;
     }
 
-    const result = user.comparePassword(password);
+    const result = await user.comparePassword(password);
 
     if (!result) {
       res.json({
@@ -48,9 +50,18 @@ const userLogin = async (req, res) => {
       return false;
     }
 
-    res.json({
-      success: true,
-      message: "Login successful !",
+    jwt.sign({ id: user.id, username }, secretKey, {}, function (err, token) {
+      if (err) {
+        res.json({
+          success: false,
+          message: "Something went wrong !",
+        });
+        return false;
+      }
+      res.cookie("token", token).json({
+        success: true,
+        message: "Login successful !",
+      });
     });
   } catch (error) {
     console.log(error);

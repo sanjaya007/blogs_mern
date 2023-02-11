@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import registerApi from "../apis/UserApi";
+import { registerApi } from "../apis/UserApi";
 
 const Register = () => {
   const [error, setError] = useState(null);
@@ -42,6 +42,8 @@ const Register = () => {
       setError(data.message);
       return false;
     }
+
+    setError(null);
 
     navigate("/login");
   };

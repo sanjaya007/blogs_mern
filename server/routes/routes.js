@@ -4,6 +4,6 @@ const router = express.Router();
 
 // user api route
 router.post("/api/user/register", userRegister);
-router.post("/api/user/register", userLogin);
+router.post("/api/user/login", userLogin);
 
 module.exports = router;

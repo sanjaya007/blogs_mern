@@ -110,6 +110,10 @@ form button {
   -o-border-radius: 5px;
 }
 
+form .error-box.success p {
+  color: green;
+}
+
 form .error-box p {
   color: tomato;
   font-weight: 500;
