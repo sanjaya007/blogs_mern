@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginApi } from "../apis/UserApi";
+import { UserContext } from "../contexts/UserContext";
 
 const Login = () => {
+  const { profile, setProfile } = useContext(UserContext);
   const [error, setError] = useState(null);
   const [input, setInput] = useState({
     username: "",
@@ -44,7 +46,8 @@ const Login = () => {
     }
 
     setError(null);
-    // navigate("/");
+    setProfile(data.data);
+    navigate("/");
   };
 
   return (

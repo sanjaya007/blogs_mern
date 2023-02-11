@@ -1,6 +1,8 @@
 const UserModal = require("../models/User");
 const jwt = require("jsonwebtoken");
 
+const secretKey = "iamsanjayapaudeliamfullstackdeveloper";
+
 const userRegister = async (req, res) => {
   const { username, password } = req.body;
   try {
@@ -28,7 +30,6 @@ const userRegister = async (req, res) => {
 
 const userLogin = async (req, res) => {
   const { username, password } = req.body;
-  const secretKey = "iamsanjayapaudeliamfullstackdeveloper";
   try {
     const user = await UserModal.findOne({ username });
 
@@ -61,6 +62,10 @@ const userLogin = async (req, res) => {
       res.cookie("token", token).json({
         success: true,
         message: "Login successful !",
+        data: {
+          id: user.id,
+          username: user.username,
+        },
       });
     });
   } catch (error) {
@@ -69,7 +74,36 @@ const userLogin = async (req, res) => {
   }
 };
 
+const getUserProfile = async (req, res) => {
+  try {
+    const cookies = req.cookies;
+    const token = cookies.token;
+
+    if (token && token !== "") {
+      jwt.verify(token, secretKey, {}, function (err, info) {
+        if (err) throw err;
+        res.json(info);
+      });
+    }
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const userLogOut = async (req, res) => {
+  try {
+    res.cookie("token", "").json({
+      success: true,
+      message: "Logout successfully !",
+    });
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   userRegister,
   userLogin,
+  getUserProfile,
+  userLogOut,
 };

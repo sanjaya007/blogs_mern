@@ -28,4 +28,30 @@ const loginApi = async (data) => {
   }
 };
 
-export { registerApi, loginApi };
+const getUserProfileApi = async () => {
+  try {
+    const response = await axios({
+      method: "get",
+      url: `${BASE_URL}/profile`,
+      withCredentials: true,
+    });
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const logOutApi = async (req, res) => {
+  try {
+    const response = await axios({
+      method: "post",
+      url: `${BASE_URL}/logout`,
+      withCredentials: true,
+    });
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { registerApi, loginApi, getUserProfileApi, logOutApi };
