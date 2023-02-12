@@ -58,12 +58,14 @@ const Login = () => {
         placeholder="Username"
         name="username"
         onChange={handleInput}
+        value={input.username}
       />
       <input
         type="password"
         placeholder="Password"
         name="password"
         onChange={handleInput}
+        value={input.password}
       />
       <div className="error-box">
         <p>{error}</p>

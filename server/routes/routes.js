@@ -1,4 +1,5 @@
 const express = require("express");
+const { createPost, getPosts } = require("../controllers/PostController");
 const {
   userRegister,
   userLogin,
@@ -12,5 +13,9 @@ router.post("/api/user/register", userRegister);
 router.post("/api/user/login", userLogin);
 router.get("/api/user/profile", getUserProfile);
 router.post("/api/user/logout", userLogOut);
+
+// post api route
+router.post("/api/post/create", createPost);
+router.get("/api/post/all", getPosts);
 
 module.exports = router;

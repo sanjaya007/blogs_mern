@@ -32,7 +32,7 @@ const Header = () => {
       <nav>
         {profile && (
           <>
-            <Link to="/create-blog">Create Blog</Link>
+            <Link to="/create-post">Create Blog</Link>
             <Link to="#" onClick={logOut}>
               Log Out
             </Link>
