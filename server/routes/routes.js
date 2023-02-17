@@ -1,4 +1,7 @@
 const express = require("express");
+const multer = require("multer");
+const uploadMiddleware = multer({ dest: "uploads/" });
+
 const { createPost, getPosts } = require("../controllers/PostController");
 const {
   userRegister,
@@ -6,6 +9,7 @@ const {
   getUserProfile,
   userLogOut,
 } = require("../controllers/UserController");
+
 const router = express.Router();
 
 // user api route
@@ -15,7 +19,7 @@ router.get("/api/user/profile", getUserProfile);
 router.post("/api/user/logout", userLogOut);
 
 // post api route
-router.post("/api/post/create", createPost);
+router.post("/api/post/create", uploadMiddleware.single("image"), createPost);
 router.get("/api/post/all", getPosts);
 
 module.exports = router;

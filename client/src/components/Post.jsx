@@ -1,6 +1,7 @@
 import React from "react";
+import { format } from "date-fns";
 
-const Post = () => {
+const Post = ({ title, summary, content, image, createdAt }) => {
   return (
     <div className="post">
       <div className="image">
@@ -10,17 +11,12 @@ const Post = () => {
         />
       </div>
       <div className="texts">
-        <h2>Juventus says goodbye to Cristiano Ronaldo</h2>
+        <h2>{title}</h2>
         <p className="info">
           <a className="author">Sanjaya Paudel</a>
-          <time> 2023 02:03:09 </time>
+          <time> {format(new Date(createdAt), "MMM d, yyyy HH:mm")} </time>
         </p>
-        <p className="summary">
-          On 10 July 2018, two icons of the European and football world came
-          together - Cristiano Ronaldo became a Juventus player. Today, after
-          three years together and 133 appearances, 101 goals scored and five
-          trophies won, that chapter has come to an end.
-        </p>
+        <p className="summary">{summary}</p>
       </div>
     </div>
   );
