@@ -13,6 +13,7 @@ const createPostApi = async (data) => {
       method: "post",
       url: `${BASE_URL}/create`,
       data: formData,
+      withCredentials: true,
     });
 
     return response;
@@ -33,4 +34,37 @@ const getPostsApi = async () => {
   }
 };
 
-export { createPostApi, getPostsApi };
+const getSinglePostApi = async (id) => {
+  try {
+    const response = await axios({
+      method: "get",
+      url: `${BASE_URL}/${id}`,
+    });
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const editPostApi = async (data, id) => {
+  try {
+    const formData = new FormData();
+    formData.set("title", data.title);
+    formData.set("summary", data.summary);
+    formData.set("content", data.content);
+    formData.set("image", data.image);
+
+    const response = await axios({
+      method: "put",
+      url: `${BASE_URL}/edit/${id}`,
+      data: formData,
+      withCredentials: true,
+    });
+
+    return response;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export { createPostApi, getPostsApi, getSinglePostApi, editPostApi };

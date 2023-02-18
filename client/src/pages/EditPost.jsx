@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { createPostApi } from "../apis/BlogApi";
+import React, { useEffect, useState } from "react";
+import { useNavigate, useParams } from "react-router-dom";
+import { createPostApi, editPostApi, getSinglePostApi } from "../apis/BlogApi";
 import Editor from "../components/Editor";
 
 const CreatePost = () => {
@@ -8,11 +8,32 @@ const CreatePost = () => {
     title: "",
     summary: "",
     content: "",
-    image: "",
+    // image: "",
   });
   const [error, setError] = useState(null);
+  const [postId, setPostId] = useState(null);
+  const [isTyping, setIsTyping] = useState(false);
 
+  const params = useParams();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const getPosts = async () => {
+      const response = await getSinglePostApi(params.id);
+      const data = response.data;
+
+      if (data.success) {
+        setInput({
+          title: data.data.title,
+          summary: data.data.summary,
+          content: data.data.content,
+          image: data.data.image,
+        });
+        setPostId(data.data._id);
+      }
+    };
+    getPosts();
+  }, [params.id]);
 
   const handleInput = (e, value = null) => {
     if (!value) {
@@ -28,10 +49,12 @@ const CreatePost = () => {
         });
       }
     } else {
-      setInput({
-        ...input,
-        content: value,
-      });
+      if (isTyping) {
+        setInput({
+          ...input,
+          content: value,
+        });
+      }
     }
   };
 
@@ -54,7 +77,7 @@ const CreatePost = () => {
       }
     }
 
-    const response = await createPostApi(input);
+    const response = await editPostApi(input, postId);
     const data = response.data;
 
     if (!data.success) {
@@ -63,7 +86,7 @@ const CreatePost = () => {
     }
 
     setError(null);
-    navigate("/");
+    navigate(-1);
   };
 
   return (
@@ -85,12 +108,14 @@ const CreatePost = () => {
       <input name="image" type="file" onChange={handleInput} />
       <Editor
         onChange={(value) => handleInput(null, value)}
+        onFocus={() => setIsTyping(true)}
+        onBlur={() => setIsTyping(false)}
         value={input.content}
       />
       <div className="error-box">
         <p>{error ?? ""}</p>
       </div>
-      <button>Create</button>
+      <button>Edit</button>
     </form>
   );
 };

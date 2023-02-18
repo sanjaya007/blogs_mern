@@ -1,22 +1,32 @@
 import React from "react";
 import { format } from "date-fns";
+import { Link } from "react-router-dom";
 
-const Post = ({ title, summary, content, image, createdAt }) => {
+const slicedChar = (value, key) => {
+  if (value.length > key) {
+    return value.slice(0, key) + "...";
+  } else {
+    return value;
+  }
+};
+
+const Post = ({ _id, title, summary, content, image, author, createdAt }) => {
   return (
     <div className="post">
       <div className="image">
-        <img
-          src="https://www.juventus.com/images/image/private/t_editorial_landscape_12_desktop/f_auto/dev/nyuf6tne3npisv92zetr.jpg"
-          alt="entry"
-        />
+        <Link to={`/post/${_id}`}>
+          <img src={"http://localhost:7000/" + image} alt="entry" />
+        </Link>
       </div>
       <div className="texts">
-        <h2>{title}</h2>
+        <Link to={`/post/${_id}`}>
+          <h2>{slicedChar(title, 80)}</h2>
+        </Link>
         <p className="info">
-          <a className="author">Sanjaya Paudel</a>
+          <a className="author">{author.username}</a>
           <time> {format(new Date(createdAt), "MMM d, yyyy HH:mm")} </time>
         </p>
-        <p className="summary">{summary}</p>
+        <p className="summary">{slicedChar(summary, 150)}</p>
       </div>
     </div>
   );

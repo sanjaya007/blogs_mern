@@ -1,10 +1,10 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { loginApi } from "../apis/UserApi";
 import { UserContext } from "../contexts/UserContext";
 
 const Login = () => {
-  const { setProfile } = useContext(UserContext);
+  const { profile, setProfile } = useContext(UserContext);
   const [error, setError] = useState(null);
   const [input, setInput] = useState({
     username: "",
@@ -12,6 +12,12 @@ const Login = () => {
   });
 
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (profile) {
+      navigate("/");
+    }
+  }, [profile]);
 
   const handleInput = (e) => {
     setInput({

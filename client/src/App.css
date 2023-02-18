@@ -48,9 +48,26 @@ header nav {
   margin-bottom: 30px;
 }
 
+.post .image {
+  max-height: 200px;
+  min-height: 200px;
+  height: 200px;
+}
+
+.post .image img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+.post .texts a {
+  text-decoration: none;
+  color: inherit;
+}
+
 .post .texts h2 {
   margin: 0;
-  font-size: 1.4rem;
+  font-size: 1.2rem;
 }
 
 .post .texts .info {
@@ -69,6 +86,7 @@ header nav {
 .post .texts .summary {
   margin: 10px 0;
   line-height: 1.4rem;
+  font-size: 0.9rem;
 }
 
 form.login,
@@ -119,4 +137,69 @@ form .error-box p {
   color: tomato;
   font-weight: 500;
   font-size: 14px;
+}
+
+.post-page .author {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.post-page .author p {
+  font-weight: 500;
+}
+
+.post-page .author a {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-decoration: none;
+  color: #fafafa;
+  font-size: 0.8rem;
+  background-color: #333333;
+  padding: 8px 20px;
+  border-radius: 4px;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  -ms-border-radius: 4px;
+  -o-border-radius: 4px;
+}
+
+.post-page .author a svg {
+  height: 16px !important;
+  margin-right: 4px;
+}
+
+.post-page .author a p {
+  margin: 0;
+  margin-top: 2px;
+}
+
+.post-page .time time {
+  display: block;
+  font-weight: 500;
+  font-size: 0.9rem;
+  color: #8d8d8d;
+  text-align: center;
+}
+
+.post-page .img-box {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.post-page .img-box img {
+  max-height: 400px;
+}
+
+.post-page .title h1 {
+  font-size: 1.6rem;
+  text-align: center;
+}
+
+.post-page .info h3 {
+  font-size: 1.1rem;
+  color: #333333;
+  font-weight: 500;
 }
